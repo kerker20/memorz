@@ -142,8 +142,8 @@ const SignUp = () => {
       }
     } else {
       users.map((user) => {
-        if(form.email !== user.email) {
-          setValidate({ ...validate, errEmail: "Email does not Exists!" });
+        if(form.email != user.email) {
+          // setValidate({ ...validate, errEmail: "Email does not Exists!" });
         }else{
           dispatch(signin(form, history));
         }
@@ -164,8 +164,9 @@ const SignUp = () => {
     }
   };
 
-  const googleError = () =>
-    alert("Google Sign In was unsuccessful. Try again later");
+  const googleError = (error) =>{
+    console.log(error);
+  }
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -267,6 +268,7 @@ const SignUp = () => {
           </Button>
           <GoogleLogin
             clientId="915234081013-94gphnqm07vak5p0ue5r4l90vclv4cgg.apps.googleusercontent.com"
+            onSuccess={googleSuccess}
             render={(renderProps) => (
               <Button
                 className={classes.googleButton}
@@ -280,9 +282,8 @@ const SignUp = () => {
                 Google Sign In
               </Button>
             )}
-            onSuccess={googleSuccess}
             onFailure={googleError}
-            cookiePolicy="single_host_origin"
+            cookiePolicy={"single_host_origin"}
           />
           <Grid container justify="flex-end">
             <Grid item>
